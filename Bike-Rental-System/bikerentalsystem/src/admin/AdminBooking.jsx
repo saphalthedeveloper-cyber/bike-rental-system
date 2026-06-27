@@ -14,7 +14,12 @@ const AdminBookings = () => {
       method: 'DELETE',
       headers: { 'Authorization': localStorage.getItem('token') }
     })
-    .then(() => window.location.reload()); 
+     .then(res=> res.json())
+    .then(()=>{
+       window.location.reload();
+    }) 
+      
+    .catch(err => console.log(err));
   };
 
   return (
