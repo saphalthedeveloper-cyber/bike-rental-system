@@ -19,6 +19,7 @@ const Home = () => {
               <p>Price: {bike.pricePerDay}</p>
                <button
                 disabled={bike.isBooked}
+                  style={{ display: localStorage.getItem('token') ? 'block' : 'none' }}
                   onClick={() => navigate(`/booking/${bike._id}`)}
               >
                 {bike.isBooked ? 'Booked' : 'Book Now'}
