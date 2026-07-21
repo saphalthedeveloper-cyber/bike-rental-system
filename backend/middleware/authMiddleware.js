@@ -3,8 +3,11 @@ const User = require('../models/user')
 
 // Check if logged in
 const requireAuth = (req, res, next) => {
-  const token = req.headers.authorization
-
+  const authHeader = req.headers.authorization
+    if (!authHeader) {
+    return res.status(401).json({ message: 'No token found' })
+  }
+ const token = authHeader.split(' ')[1]
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {

@@ -7,9 +7,9 @@ const Booking = () => {
   const navigate = useNavigate()
 
   const { data, loading, error } = useFetch(`http://localhost:3000/backend/booking/${bikeId}`)
- const bike = data && data.bikes;
- const user = data && data.user;
- const pricePerDay = (bike && bike.pricePerDay) || 0;
+  const bike = data && data.bikes;
+  const user = data && data.user;
+  const pricePerDay = (bike && bike.pricePerDay) || 0;
 
 
   const [name, setName] = useState('')
@@ -17,6 +17,7 @@ const Booking = () => {
   const [fromDate, setFromDate] = useState('')
   const [toDate, setToDate] = useState('')
   const [price, setPrice] = useState(0);
+  const [image, setImage] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -38,7 +39,8 @@ const Booking = () => {
           fromDate,
           toDate,
           pricePerDay: bike.pricePerDay,
-          totalPrice
+          totalPrice,
+          image
         })
       })
 
@@ -55,19 +57,19 @@ const Booking = () => {
     }
   }
 
-useEffect(()=>{
-  if(fromDate && toDate){
-     const days=(new Date(toDate)-new Date(fromDate))/86400000;
-     const priceFromDB=pricePerDay
-    const totalPrice=days*priceFromDB;
-    setPrice(totalPrice);
-  }
- 
-},[fromDate,toDate,pricePerDay]);
+  useEffect(() => {
+    if (fromDate && toDate) {
+      const days = (new Date(toDate) - new Date(fromDate)) / 86400000;
+      const priceFromDB = pricePerDay
+      const totalPrice = days * priceFromDB;
+      setPrice(totalPrice);
+    }
 
+  }, [fromDate, toDate, pricePerDay]);
+  
   return (
     <div id="contact-info">
-      <h2>CONTACT DETAILS</h2>
+      <h2>BOOKING</h2>
 
       {loading && <p>Loading...</p>}
       {error && <p>Something went wrong</p>}
@@ -93,12 +95,19 @@ useEffect(()=>{
             required
           />
 
+
+         
+          
           <label>Bike</label>
           <input
             type="text"
             value={bike.name}
             readOnly
           />
+           <div className="bike-preview">
+            <img src={`/${bike.image}`} alt={bike.name} className="bikeimg" />
+          
+          </div>
 
           <label>From Date</label>
           <input
@@ -122,12 +131,13 @@ useEffect(()=>{
             value={`Rs. ${bike.pricePerDay}`}
             readOnly
           />
-             <label>Total Price</label>
+          <label>Total Price</label>
           <input
             type="text"
             value={`Rs. ${price}`}
             readOnly
           />
+
 
           <button type="submit">Book Now</button>
         </form>

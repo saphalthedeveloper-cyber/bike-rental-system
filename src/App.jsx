@@ -11,13 +11,16 @@ import AdminBikes from './admin/AdminBikes';
 import AdminBooking from './admin/AdminBooking';
 import BookingHistory from './BookingHistory';
 import { useState } from 'react';
+import useFetch from './useFetch';
 function App() {
     const [search, setSearch] = useState("");
+    const { data: bikes , loading, error } = useFetch("http://localhost:3000/backend/bikes");
     return (
         <Router>
             <Navbar
                 search={search}
                 onSearchChange={setSearch}
+                bikes={bikes}
             />
             <div className="content">
                 <Routes>

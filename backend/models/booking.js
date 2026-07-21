@@ -10,7 +10,8 @@ const bookingSchema=new Schema({
     totalPrice:Number,
     bikeId: { type: Schema.Types.ObjectId, ref: 'Bike' }, 
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
-    pricePerDay:String,  
+    pricePerDay:String,
+     
 },{timestamps:true})
 
 module.exports=mongoose.model('Booking',bookingSchema);

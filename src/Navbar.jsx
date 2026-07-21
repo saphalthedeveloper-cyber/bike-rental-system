@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar'
+import SearchResultList from "./SearchResultList";
 
-const Navbar = ({search,onSearchChange}) => {
+const Navbar = ({search,onSearchChange,bikes=[]}) => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -29,12 +30,11 @@ const Navbar = ({search,onSearchChange}) => {
     <nav className="navbar">
       <div className="nav-left">
       <img src="/images/logo.jpeg" alt="logo" className="logo" />
-        {token && (isHomePage || isBikePage) &&   <SearchBar 
-        search={search}
-        onSearchChange={onSearchChange}
-      />}
-      </div>
-      
+       <div className="search-wrapper" style={{ position: "relative" }}>
+      <SearchBar search={search} onSearchChange={onSearchChange} />
+      <SearchResultList search={search} bikes={bikes} onSearchChange={onSearchChange}/>
+    </div>
+      </div>     
       <div className="classlink">
        
         {userName && !isLoginPage && <span>Welcome, {userName}</span>}

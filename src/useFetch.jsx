@@ -11,7 +11,7 @@ const useFetch = (url) => {
     fetch(url, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': token
+        'Authorization': `Bearer ${token}`
       }
     })
       .then(res => {
