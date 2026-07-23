@@ -14,7 +14,7 @@ const Home = ({search}) => {
  return (
   <div className="home">
     {loading && <p className='loading'></p>}
-    {error && <p>Something went wrong</p>}
+    {error && <p className="error" > ⚠️ Something went wrong</p>}
 
     <img
       src="/images/background.png"

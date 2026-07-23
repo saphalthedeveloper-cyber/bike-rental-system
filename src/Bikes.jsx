@@ -11,7 +11,7 @@ const Bikes = ({search}) => {
     <div className="home">
       <h2>Bikes</h2>
       {loading && <p className='loading'></p>}
-      {error && <p>Something went wrong</p>}
+      {error && <p className="error" >Something went wrong</p>}
       <div className="featured">
         
           <div className='no-bike'>

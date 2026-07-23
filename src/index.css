@@ -953,3 +953,14 @@ input {
   font-weight: 600;
   font-size: 30px;
 }
+.error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ff7675;
+  background: rgba(255, 118, 117, 0.1);
+  color: #d63031;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+}

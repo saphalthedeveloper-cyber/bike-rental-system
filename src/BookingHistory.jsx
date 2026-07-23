@@ -10,7 +10,7 @@ const BookingHistory = () => {
       <h1 className="nobooking-title">BOOKING HISTORY</h1>
 
       {loading && <p className='loading'></p>}
-      {error && <p>Something went wrong</p>}
+      {error && <p className="error" >Something went wrong</p>}
 
       {bookings.length === 0 && !loading && (
         <div className="no-bookings">
