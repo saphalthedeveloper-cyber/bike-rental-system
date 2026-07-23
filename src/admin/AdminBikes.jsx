@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import useFetch from '../UseFetch'
+import useFetch from '../useFetch'
 
 const AdminBikes = () => {
   const { data: bikes, loading, error } = useFetch('http://localhost:3000/backend/admin/bikes')
