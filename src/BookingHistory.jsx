@@ -9,7 +9,7 @@ const BookingHistory = () => {
     <div>
       <h1 className="nobooking-title">BOOKING HISTORY</h1>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className='loading'></p>}
       {error && <p>Something went wrong</p>}
 
       {bookings.length === 0 && !loading && (

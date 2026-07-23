@@ -13,7 +13,7 @@ const Home = ({search}) => {
 
  return (
   <div className="home">
-    {loading && <p>Loading...</p>}
+    {loading && <p className='loading'></p>}
     {error && <p>Something went wrong</p>}
 
     <img

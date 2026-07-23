@@ -9,10 +9,11 @@ const Bikes = ({search}) => {
    );
   return (
     <div className="home">
-      {loading && <p>Loading...</p>}
+      <h2>Bikes</h2>
+      {loading && <p className='loading'></p>}
       {error && <p>Something went wrong</p>}
       <div className="featured">
-        <h2>Bikes</h2>
+        
           <div className='no-bike'>
    {filteredBikes.length === 0 && search.trim() !== "" && (
           <p>No bikes found.</p>

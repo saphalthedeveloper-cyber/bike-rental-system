@@ -71,7 +71,7 @@ const Booking = () => {
     <div id="contact-info">
       <h2>BOOKING</h2>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className='loading'></p>}
       {error && <p>Something went wrong</p>}
 
       {bike && (
