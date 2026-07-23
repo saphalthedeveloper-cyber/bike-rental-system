@@ -31,7 +31,7 @@ const Navbar = ({search,onSearchChange,bikes=[]}) => {
       <div className="nav-left">
       <img src="/images/logo.jpeg" alt="logo" className="logo" />
        <div className="search-wrapper" style={{ position: "relative" }}>
-      <SearchBar search={search} onSearchChange={onSearchChange} />
+      { token && <SearchBar search={search} onSearchChange={onSearchChange} /> }
       <SearchResultList search={search} bikes={bikes} onSearchChange={onSearchChange}/>
     </div>
       </div>     

@@ -8,6 +8,7 @@ const requireAuth = (req, res, next) => {
     return res.status(401).json({ message: 'No token found' })
   }
  const token = authHeader.split(' ')[1]
+ 
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {
