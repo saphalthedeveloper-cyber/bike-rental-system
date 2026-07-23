@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import useFetch from './UseFetch'
+import useFetch from './useFetch'
 
 const Booking = () => {
   const { bikeId } = useParams()
