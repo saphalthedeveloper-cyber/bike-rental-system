@@ -16,8 +16,13 @@ const Booking = () => {
   const [phone, setPhone] = useState('')
   const [fromDate, setFromDate] = useState('')
   const [toDate, setToDate] = useState('')
-  const [price, setPrice] = useState(0);
+  const [price, settotalPrice] = useState('0');
   const [image, setImage] = useState('')
+  const [bookingError, setBookingError] = useState('')
+
+
+  const today = new Date().toISOString().split('T')[0];
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -29,27 +34,28 @@ const Booking = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': token
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           bikeId,
           name,
           phone,
-          bikeName: bike.bikeName,
+          bikeName: bike.name,
           fromDate,
           toDate,
           pricePerDay: bike.pricePerDay,
-          totalPrice,
-          image
+          price
         })
       })
 
       const data = await res.json()
-      console.log(data)
+
 
       if (data.success) {
         alert('Bike booked successfully!')
-        navigate('/')
+        navigate('/') } 
+        else if (data.error) {
+      setBookingError(data.error)
       }
 
     } catch (err) {
@@ -57,16 +63,24 @@ const Booking = () => {
     }
   }
 
-  useEffect(() => {
-    if (fromDate && toDate) {
-      const days = (new Date(toDate) - new Date(fromDate)) / 86400000;
-      const priceFromDB = pricePerDay
-      const totalPrice = days * priceFromDB;
-      setPrice(totalPrice);
-    }
+useEffect(() => {
+  if (fromDate && toDate) {
+    const days = (new Date(toDate) - new Date(fromDate)) / 86400000;
+    const totalPrice = days * pricePerDay;
+    settotalPrice(totalPrice);
+  }
+}, [fromDate, toDate, pricePerDay])
 
-  }, [fromDate, toDate, pricePerDay]);
-  
+
+useEffect(() => {
+  if (bookingError) {
+    const timer = setTimeout(() => {
+      setBookingError('')
+    }, 4000)
+return () => clearTimeout(timer) 
+  }
+}, [bookingError])
+
   return (
     <div id="contact-info">
       <h2>BOOKING</h2>
@@ -96,23 +110,24 @@ const Booking = () => {
           />
 
 
-         
-          
+
+
           <label>Bike</label>
           <input
             type="text"
             value={bike.name}
             readOnly
           />
-           <div className="bike-preview">
+          <div className="bike-preview">
             <img src={`/${bike.image}`} alt={bike.name} className="bikeimg" />
-          
+
           </div>
 
           <label>From Date</label>
           <input
             type="date"
             value={fromDate}
+             min={today}
             onChange={(e) => setFromDate(e.target.value)}
             required
           />
@@ -121,6 +136,7 @@ const Booking = () => {
           <input
             type="date"
             value={toDate}
+            min={today}
             onChange={(e) => setToDate(e.target.value)}
             required
           />
@@ -140,6 +156,8 @@ const Booking = () => {
 
 
           <button type="submit">Book Now</button>
+          {bookingError && <p className="error-booking">{bookingError}</p>}
+
         </form>
       )}
     </div>

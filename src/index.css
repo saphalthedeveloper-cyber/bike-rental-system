@@ -188,8 +188,7 @@
   }
  
    .classlink a{
-    margin-top:10px;
-    
+    margin-top:10px; 
   }
   .classlink span{
     margin-top:10px;
@@ -201,7 +200,9 @@
   .logout-btn {
     display: none;
   }
-
+  .nav-booking{
+  display: none;
+}
 
 
 }
@@ -251,15 +252,11 @@
     margin-top:10px;
     font-size: 12px;
     margin-right:2px;
-    margin-left: -6px;
   }
 
- 
-
-  
-  .classlink span {
-    display: none;
-  }
+   .welcome{
+  display: none;
+}
 }
 .bike-preview{
    background: #fff;
@@ -297,10 +294,7 @@
   vertical-align: middle;
 }
 
-.bike-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
+
 
 .bikeimg {
   width: 100%;
@@ -309,7 +303,9 @@
   border-radius: 8px;
   margin-bottom: 15px;
 }
-
+.bikeimg:hover {
+  transform: scale(1.05);
+}
 .bike-card h3 {
   margin-bottom: 8px;
   font-size: 1.1rem;
@@ -953,7 +949,7 @@ input {
   font-weight: 600;
   font-size: 30px;
 }
-.error {
+.error-booking {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -964,5 +960,5 @@ input {
   padding: 10px 14px;
   font-size: 14px;
   justify-content: center;
-  margin: 20%;
+  margin-top: 10px;
 }

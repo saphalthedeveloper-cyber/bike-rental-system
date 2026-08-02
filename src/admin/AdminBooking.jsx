@@ -15,7 +15,7 @@ const AdminBookings = () => {
     
     fetch(`http://localhost:3000/backend/admin/bookings/${id}`, {
       method: 'DELETE',
-      headers: { 'Authorization': localStorage.getItem('token') }
+      headers: { 'Authorization': `Bearer ${token}` }
     })
     .then(res=> res.json())
     .then(()=>{

@@ -12,9 +12,9 @@ const Navbar = ({search,onSearchChange,bikes=[]}) => {
 
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
+  const isSignUpPage = location.pathname === '/signup';
   const isHomePage = location.pathname === '/';
   const isBikePage = location.pathname === '/bikes';
-
 
 
   const isOwner = token && role === "owner";
@@ -31,13 +31,13 @@ const Navbar = ({search,onSearchChange,bikes=[]}) => {
       <div className="nav-left">
       <img src="/images/logo.jpeg" alt="logo" className="logo" />
        <div className="search-wrapper" style={{ position: "relative" }}>
-      { token && <SearchBar search={search} onSearchChange={onSearchChange} /> }
+      { token && !isLoginPage  && !isSignUpPage &&<SearchBar search={search} onSearchChange={onSearchChange} /> }
       <SearchResultList search={search} bikes={bikes} onSearchChange={onSearchChange}/>
     </div>
       </div>     
       <div className="classlink">
        
-        {userName && !isLoginPage && <span>Welcome, {userName}</span>}
+        {userName && !isLoginPage  && !isSignUpPage &&<span className="welcome">Welcome, {userName}</span>}
        
         {!token && (
           <>
@@ -62,7 +62,7 @@ const Navbar = ({search,onSearchChange,bikes=[]}) => {
           </>
         )}
 
-        {token && !isLoginPage && (
+        {token && !isLoginPage && !isSignUpPage && (
           <button onClick={handleLogout} className="logout-btn">
             Logout
           </button>

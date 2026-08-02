@@ -24,11 +24,26 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 app.get('/backend/home', async (req, res) => {
-    try {
+     try {
         const bikes = await Bike.find();
-       res.status(200).json(bikes);
+        const today = new Date();
+
+        const bikesWithStatus = await Promise.all(
+            bikes.map(async (bike) => {
+                const activeBooking = await Booking.findOne({
+                    bikeId: bike._id,
+                    fromDate: { $lte: today },
+                    toDate: { $gte: today },
+                });
+               
+                return { ...bike.toObject(), isBooked: !!activeBooking };
+               
+            })
+        );
+
+        res.status(200).json(bikesWithStatus);
     } catch (err) {
-        res.status(500).json({error:'Failed to fetch bikes'})
+        res.status(500).json({ error: 'Failed to fetch bikes' })
     }
 });
 //admin
@@ -91,7 +106,19 @@ app.delete('/backend/admin/bookings/:id',requireAuth, requireOwner, async (req, 
 app.get('/backend/bikes', requireAuth,requireRenter, async (req, res) => {
     try {
         const bikes = await Bike.find();
-        res.status(200).json( bikes)
+        const today = new Date();
+
+        const bikesWithStatus = await Promise.all(
+            bikes.map(async (bike) => {
+                const activeBooking = await Booking.findOne({
+                    bikeId: bike._id,
+                    fromDate: { $lte: today },
+                    toDate: { $gte: today },
+                });
+                return { ...bike.toObject(), isBooked: !!activeBooking };
+            })
+        );
+        res.status(200).json(bikesWithStatus);
     } catch (err) {
         res.status(500).json({ error: err.message })
     }
@@ -99,13 +126,21 @@ app.get('/backend/bikes', requireAuth,requireRenter, async (req, res) => {
 
 app.post('/backend/booking', requireAuth,requireRenter, async (req, res) => {
     try {
-        const booking = new Booking({
+         const { bikeId, fromDate, toDate } = req.body;
+          const overlapping = await Booking.findOne({
+            bikeId,
+            fromDate: { $lte: new Date(toDate) },
+            toDate: { $gte: new Date(fromDate) },
+        });
+          if (overlapping) {
+            return res.status(409).json({ error: 'This bike is already booked for the selected dates' });
+        }
+        const bookings = new Booking({
             ...req.body,
             userId: req.user._id
         });
-        const bookings = await booking.save();
-        await Bike.findByIdAndUpdate(bookings.bikeId, { isBooked: true });
-       res.status(201).json({ success: true, bikeId: bookings.bikeId })
+        const saved = await bookings.save();
+       res.status(201).json({ success: true, bikeId: saved.bikeId })
     } catch (err) {
         res.status(500).json({ error: err.message })
     }

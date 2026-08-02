@@ -10,6 +10,9 @@ const Home = ({search}) => {
   const filteredBikes = (bikes || []).filter((bike) =>
     bike.name.toLowerCase().includes(search.toLowerCase())
    );
+  
+   
+
 
  return (
   <div className="home">
@@ -42,12 +45,15 @@ const Home = ({search}) => {
 
             <button
               disabled={bike.isBooked}
-              onClick={() => navigate(`/booking/${bike._id}`)}
-              style={{
-                display: localStorage.getItem("token") ? "block" : "none",
-              }}
+            onClick={() => {const token=localStorage.getItem("token")
+               if (!token) {
+              navigate('/login')
+             }else{
+               navigate(`/booking/${bike._id}`)}}
+              }
             >
               {bike.isBooked ? "Booked" : "Book Now"}
+              
             </button>
           </div>
         ))}
