@@ -10,7 +10,7 @@ const cors = require('cors')
 const { requireAuth, requireOwner, requireRenter } = require('./middleware/authMiddleware')
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:5173', 
+app.use(cors({ origin:'https://bike-rental-system-five.vercel.app', 
     credentials: true}));
 
 app.use(cookieParser());

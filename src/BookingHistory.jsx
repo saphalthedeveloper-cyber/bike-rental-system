@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import useFetch from './useFetch'
+import { API_URL } from './config'
 
 const BookingHistory = () => {
-  const { data, loading, error } = useFetch('http://localhost:3000/backend/bookings')
+  const { data, loading, error } = useFetch(`${API_URL}/backend/bookings`)
   const bookings = (data && data.bookings)|| [];
 
   return (

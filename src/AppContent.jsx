@@ -13,10 +13,11 @@ import BookingHistory from './BookingHistory';
 import { useState } from 'react';
 import useFetch from './useFetch';
 import { useLocation } from 'react-router-dom';
+import { API_URL } from './config'
 function AppContent() {
     const [search, setSearch] = useState("");
     const token = localStorage.getItem('token');
-    const { data: bikes , loading, error } = useFetch(token ? 'http://localhost:3000/backend/bikes' : null);
+    const { data: bikes , loading, error } = useFetch(token ?  `${API_URL}/backend/bikes` : null);
     const location = useLocation();
     const isLoginPage = location.pathname === '/login';
     const isSignUpPage = location.pathname === '/signup';

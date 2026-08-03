@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import useFetch from '../useFetch'
+import { API_URL } from '../config'
 
 const AdminBikes = () => {
-  const { data: bikes, loading, error } = useFetch('http://localhost:3000/backend/admin/bikes')
+  const { data: bikes, loading, error } = useFetch(`${API_URL}/backend/admin/bikes`)
 
   const [name, setName] = useState('')
   const [color, setColor] = useState('')
@@ -15,7 +16,7 @@ const AdminBikes = () => {
     const token = localStorage.getItem('token')
 
     try {
-      const res = await fetch('http://localhost:3000/backend/admin/bikes/add', {
+      const res = await fetch(`${API_URL}/backend/admin/bikes/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ const AdminBikes = () => {
     const form = e.target
 
     try {
-      const res = await fetch(`http://localhost:3000/backend/admin/bikes/edit/${bikeId}`, {
+      const res = await fetch(`${API_URL}/backend/admin/bikes/edit/${bikeId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ const AdminBikes = () => {
     const token = localStorage.getItem('token')
 
     try {
-      const res = await fetch(`http://localhost:3000/backend/admin/bikes/delete/${bikeId}`, {
+      const res = await fetch(`${API_URL}/backend/admin/bikes/delete/${bikeId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

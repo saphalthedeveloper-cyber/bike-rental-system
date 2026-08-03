@@ -1,0 +1,1 @@
+export const API_URL = 'https://bike-rental-system-6pof.onrender.com';

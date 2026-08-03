@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { API_URL } from './config'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -18,7 +19,7 @@ const Login = () => {
     setPasswordError('')
 
     try {
-      const res = await fetch('http://localhost:3000/backend/login', {
+      const res = await fetch(`${API_URL}/backend/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {

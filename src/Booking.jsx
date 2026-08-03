@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import useFetch from './useFetch'
+import { API_URL } from './config'
 
 const Booking = () => {
   const { bikeId } = useParams()
   const navigate = useNavigate()
 
-  const { data, loading, error } = useFetch(`http://localhost:3000/backend/booking/${bikeId}`)
+  const { data, loading, error } = useFetch(`${API_URL}/backend/booking/${bikeId}`)
   const bike = data && data.bikes;
   const user = data && data.user;
   const pricePerDay = (bike && bike.pricePerDay) || 0;
@@ -30,7 +31,7 @@ const Booking = () => {
     const token = localStorage.getItem('token')
 
     try {
-      const res = await fetch('http://localhost:3000/backend/booking', {
+      const res = await fetch(`${API_URL}/backend/booking`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

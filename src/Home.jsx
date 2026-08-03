@@ -1,11 +1,12 @@
 import useFetch from './useFetch'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
+import { API_URL } from './config'
 const Home = ({search}) => {
 
   const navigate = useNavigate();
 
-     const { data: bikes, loading, error } = useFetch('http://localhost:3000/backend/home');
+     const { data: bikes, loading, error } = useFetch(`${API_URL}/backend/home`);
 
   const filteredBikes = (bikes || []).filter((bike) =>
     bike.name.toLowerCase().includes(search.toLowerCase())

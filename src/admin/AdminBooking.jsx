@@ -1,7 +1,8 @@
 import useFetch from '../useFetch';
+import { API_URL } from '../config'
 
 const AdminBookings = () => {
-  const { data: bookings, loading, error } = useFetch('http://localhost:3000/backend/admin/bookings');
+  const { data: bookings, loading, error } = useFetch(`${API_URL}/backend/admin/bookings`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -10,10 +11,8 @@ const AdminBookings = () => {
   const handleDelete = (id) => {
     if (!window.confirm('Delete this booking?')) return;
         const token = localStorage.getItem('token');
-    console.log('Token:', token); // Debug
-    console.log('Deleting ID:', id); // Debug
     
-    fetch(`http://localhost:3000/backend/admin/bookings/${id}`, {
+    fetch(`${API_URL}/backend/admin/bookings/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     })
