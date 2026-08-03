@@ -6,6 +6,10 @@ const useFetch = (url) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+      if (!url) {
+      setLoading(false)
+      return
+    }
     const token = localStorage.getItem('token')
 
     fetch(url, {
